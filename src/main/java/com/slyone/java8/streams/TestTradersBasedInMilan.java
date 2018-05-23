@@ -3,7 +3,7 @@ package com.slyone.java8.streams;
 import java.util.Arrays;
 import java.util.List;
 
-public class TestAllTradersSorted {
+public class TestTradersBasedInMilan {
     public static void main(String[] args) {
         Trader raoul = new Trader("Raoul", "Cambridge");
         Trader mario = new Trader("Mario", "Milan");
@@ -18,12 +18,11 @@ public class TestAllTradersSorted {
                 new Transaction(mario, 2012, 700),
                 new Transaction(alan, 2012, 950));
 
-        String traderStr =
+        boolean milanBased =
                 transactions.stream()
-                    .map(transaction -> transaction.getTrader().getName() + " ")
-                    .distinct()
-                    .sorted()
-                    .reduce("", (n1,n2) -> n1 + " " + n2);
-        System.out.println(traderStr);
+                    .anyMatch(transaction -> transaction.getTrader()
+                                                .getCity()
+                                                .equals("Milan"));
+        System.out.println(milanBased);
     }
 }

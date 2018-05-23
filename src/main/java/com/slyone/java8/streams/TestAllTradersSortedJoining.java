@@ -3,7 +3,9 @@ package com.slyone.java8.streams;
 import java.util.Arrays;
 import java.util.List;
 
-public class TestAllTradersSorted {
+import static java.util.stream.Collectors.joining;
+
+public class TestAllTradersSortedJoining {
     public static void main(String[] args) {
         Trader raoul = new Trader("Raoul", "Cambridge");
         Trader mario = new Trader("Mario", "Milan");
@@ -20,10 +22,10 @@ public class TestAllTradersSorted {
 
         String traderStr =
                 transactions.stream()
-                    .map(transaction -> transaction.getTrader().getName() + " ")
-                    .distinct()
-                    .sorted()
-                    .reduce("", (n1,n2) -> n1 + " " + n2);
+                        .map(transaction -> transaction.getTrader().getName())
+                        .distinct()
+                        .sorted()
+                        .collect(joining());
         System.out.println(traderStr);
     }
 }

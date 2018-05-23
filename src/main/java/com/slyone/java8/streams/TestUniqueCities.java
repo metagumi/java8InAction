@@ -3,7 +3,9 @@ package com.slyone.java8.streams;
 import java.util.Arrays;
 import java.util.List;
 
-public class TestAllTradersSorted {
+import static java.util.stream.Collectors.toList;
+
+public class TestUniqueCities {
     public static void main(String[] args) {
         Trader raoul = new Trader("Raoul", "Cambridge");
         Trader mario = new Trader("Mario", "Milan");
@@ -17,13 +19,11 @@ public class TestAllTradersSorted {
                 new Transaction(mario, 2012, 710),
                 new Transaction(mario, 2012, 700),
                 new Transaction(alan, 2012, 950));
-
-        String traderStr =
+        List<String> cities =
                 transactions.stream()
-                    .map(transaction -> transaction.getTrader().getName() + " ")
+                    .map(transaction -> transaction.getTrader().getCity())
                     .distinct()
-                    .sorted()
-                    .reduce("", (n1,n2) -> n1 + " " + n2);
-        System.out.println(traderStr);
+                    .collect(toList());
+        System.out.println(cities);
     }
 }
